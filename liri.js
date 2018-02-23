@@ -101,39 +101,58 @@ function showMovie(movie) {
 }
 
 function readFile(fileName) {
-
-//can't get this code to wait for the input!!!!!
 	if (fileName == undefined) {
 		inquirer.prompt([
 			{
 				type: "input",
 				name: "file",
-				message: "Input file Name"
+				message: "Input file Name --> "
 			}]).then(function(userAnswer) {
 				fileName = userAnswer.file;
-				console.log("File Name: " + fileName);
-			});
+				fs.readFile(fileName, "utf8", function(err, data) {
+    				if (err) {
+      					return console.log(err);
+    				}
+
+    				data = data.split(", ");
+
+    				switch (data[0]) {
+    					case "my-tweets":
+						getTweets();
+						break;
+					case "movie-this":
+						showMovie(data[1]);
+						break;
+					case "spotify-this-song":
+						getSpotify(data[1]);
+						break;
+    			}
+  			});
+		});
 	}
+	
+	else {
 
-  	fs.readFile(fileName, "utf8", function(err, data) {
-    	if (err) {
-      	return console.log(err);
-    	}
+  		fs.readFile(fileName, "utf8", function(err, data) {
+    		if (err) {
+      			return console.log(err);
+    		}
 
-    data = data.split(", ");
+    		data = data.split(", ");
 
-    switch (data[0]) {
-    	case "my-tweets":
-			getTweets();
-			break;
-		case "movie-this":
-			showMovie(data[1]);
-			break;
-		case "spotify-this-song":
-			getSpotify(data[1]);
-			break;
-    }
-  });
+    		switch (data[0]) {
+    			case "my-tweets":
+				getTweets();
+				break;
+			case "movie-this":
+				showMovie(data[1]);
+				break;
+			case "spotify-this-song":
+				getSpotify(data[1]);
+				break;
+    		}
+  		});
+  	}
 
 }
 

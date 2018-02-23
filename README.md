@@ -18,4 +18,6 @@ and execute the command.  To call liri with a file, type in:
 node liri.js do-what-is-says <file name, no quotes>
 
 Here's some fun enhancements I made:
-If the song returned by Spotify has a preview, then I give you the option to play the preview in your browser.  If tehre is no preview returned, I let you chose to see all of the other records returned by spotify.
+1.  If the song returned by Spotify has a preview, then I give you the option to play the preview in your browser.  
+2.  If there is no preview returned, I let you chose to see all of the other records returned by spotify.
+3.  If you don't type in a file name when calling "do-what-it-says", it will prompt the user for the file name.
